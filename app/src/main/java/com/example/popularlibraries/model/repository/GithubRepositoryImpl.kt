@@ -1,20 +1,24 @@
 package com.example.popularlibraries.model.repository
 
+import com.example.popularlibraries.common.mapToEntity
 import com.example.popularlibraries.model.GithubUser
-import io.reactivex.rxjava3.core.Observable
+import com.example.popularlibraries.network.ReposDto
+import com.example.popularlibraries.network.UsersApi
+import io.reactivex.rxjava3.core.Single
 import java.util.concurrent.TimeUnit
 
-class GithubRepositoryImpl : GithubRepository {
+class GithubRepositoryImpl(private val usersApi: UsersApi) : GithubRepository {
 
-    private val repositories = listOf(
-        GithubUser("Egor Kisel"),
-        GithubUser("Rita Kisel"),
-        GithubUser("Marsel Petrovich"),
-        GithubUser("Anton Kisel"),
-        GithubUser("Gnom Gnomych"),
-    )
+    override fun getUsers(): Single<List<GithubUser>> {
+        return usersApi.getAllUsers().map { it.map(::mapToEntity) }
+            .delay(500, TimeUnit.MILLISECONDS)
+    }
 
-    override fun getUsers(): Observable<List<GithubUser>> {
-        return Observable.fromIterable(listOf(repositories)).delay(1, TimeUnit.SECONDS)
+    override fun getUsersByLogin(login: String): Single<GithubUser> {
+        return usersApi.getUser(login).map(::mapToEntity).delay(500, TimeUnit.MILLISECONDS)
+    }
+
+    override fun getReposByLogin(login: String): Single<List<ReposDto>> {
+        return usersApi.getRepos(login)
     }
 }

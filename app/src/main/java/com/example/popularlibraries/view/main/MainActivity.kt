@@ -5,9 +5,6 @@ import com.example.popularlibraries.R
 import com.example.popularlibraries.core.App
 import com.example.popularlibraries.databinding.ActivityMainBinding
 import com.example.popularlibraries.presenter.MainPresenter
-import com.example.popularlibraries.test.BackPressure
-import com.example.popularlibraries.test.Operators
-import com.example.popularlibraries.test.Sources
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -26,7 +23,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         //Creation().exec()
         //Operators().exec()
         //Sources().exec()
-        BackPressure().exec()
+        //BackPressure().exec()
     }
 
     override fun onResumeFragments() {

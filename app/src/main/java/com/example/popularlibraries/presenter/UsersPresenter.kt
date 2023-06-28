@@ -2,6 +2,7 @@ package com.example.popularlibraries.presenter
 
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.UsersScreen
+import com.example.popularlibraries.common.subscribeByDefault
 import com.example.popularlibraries.model.GithubUser
 import com.example.popularlibraries.model.repository.GithubRepository
 import com.example.popularlibraries.view.users.UserView
@@ -18,7 +19,7 @@ class UsersPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.showLoading()
-        repository.getUsers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        repository.getUsers().subscribeByDefault()
             .subscribe({
                 viewState.initList(it)
                 viewState.hideLoading()
@@ -27,8 +28,8 @@ class UsersPresenter(
             })
     }
 
-    fun openUserScreen(user: GithubUser) {
-        router.navigateTo(UserScreen(user))
+    fun openUserScreen(userLogin: String) {
+        router.navigateTo(UserScreen(userLogin))
     }
 
     fun onBackPressed(): Boolean {

@@ -6,23 +6,28 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/ivUserAvatar"
+    <TextView
+        android:id="@+id/nameRepo"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
+        tools:text="Kisel"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_user_placeholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvUserLogin"
+        android:id="@+id/dateCreating"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
-        android:layout_marginStart="16dp"
+        tools:text="Egor"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivUserAvatar"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Kakoi to" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/nameRepo"
+        tools:layout_editor_absoluteX="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

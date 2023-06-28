@@ -4,16 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.popularlibraries.common.loadGlide
 import com.example.popularlibraries.databinding.UserItemBinding
 import com.example.popularlibraries.model.GithubUser
 
-class UsersAdapter() : RecyclerView.Adapter<UsersAdapter.GithubUserViewHolder>() {
+typealias OnUserClickListener = (login: String) -> Unit
 
-    private lateinit var userClick: ItemClickListener
+class UsersAdapter(private val onUserClickListener: OnUserClickListener) :
+    RecyclerView.Adapter<UsersAdapter.GithubUserViewHolder>() {
 
-    fun setOnUserClickListener(listener: ItemClickListener) {
-        userClick = listener
-    }
+//    private lateinit var userClick: ItemClickListener
+//
+//    fun setOnUserClickListener(listener: ItemClickListener) {
+//        userClick = listener
+//    }
 
     var users: List<GithubUser> = emptyList()
         set(value) {
@@ -23,7 +27,8 @@ class UsersAdapter() : RecyclerView.Adapter<UsersAdapter.GithubUserViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
         return GithubUserViewHolder(
-            UserItemBinding.inflate(LayoutInflater.from(parent.context)), userClick
+            UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            , onUserClickListener
         )
     }
 
@@ -35,12 +40,13 @@ class UsersAdapter() : RecyclerView.Adapter<UsersAdapter.GithubUserViewHolder>()
 
     class GithubUserViewHolder(
         private val binding: UserItemBinding,
-        private val userClick: ItemClickListener
+        private val onUserClickListener: OnUserClickListener
     ) : ViewHolder(binding.root) {
         fun bind(item: GithubUser) = with(binding) {
             tvUserLogin.text = item.login
-            itemView.setOnClickListener {
-                userClick.onUserClick(item)
+            ivUserAvatar.loadGlide(item.avatarUrl)
+            root.setOnClickListener {
+                onUserClickListener.invoke(item.login)
             }
         }
     }

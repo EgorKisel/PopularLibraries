@@ -13,6 +13,7 @@ import com.example.popularlibraries.core.App
 import com.example.popularlibraries.databinding.FragmentUserListBinding
 import com.example.popularlibraries.model.GithubUser
 import com.example.popularlibraries.model.repository.GithubRepositoryImpl
+import com.example.popularlibraries.network.NetworkProvider
 import com.example.popularlibraries.presenter.UsersPresenter
 import com.example.popularlibraries.view.main.BackPressedListener
 import moxy.MvpAppCompatFragment
@@ -21,16 +22,18 @@ import moxy.ktx.moxyPresenter
 class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubRepositoryImpl(), App.instance.router)
+        UsersPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router)
     }
 
-    private val listener = object : ItemClickListener {
-        override fun onUserClick(user: GithubUser) {
-            presenter.openUserScreen(user)
-        }
-    }
+//    private val listener = object : ItemClickListener {
+//        override fun onUserClick(user: GithubUser) {
+//            presenter.openUserScreen(user)
+//        }
+//    }
 
-    private val userAdapter = UsersAdapter()
+    private val userAdapter = UsersAdapter() {
+        presenter.openUserScreen(it)
+    }
     private lateinit var binding: FragmentUserListBinding
 
     override fun onCreateView(
@@ -45,7 +48,7 @@ class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAdapter.setOnUserClickListener(listener)
+        //userAdapter.setOnUserClickListener(listener)
         binding.rvGithubUser.adapter = userAdapter
         binding.rvGithubUser.layoutManager = LinearLayoutManager(requireContext())
     }
