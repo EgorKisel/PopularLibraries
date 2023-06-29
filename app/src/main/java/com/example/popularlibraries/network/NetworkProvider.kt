@@ -1,7 +1,6 @@
 package com.example.popularlibraries.network
 
 import com.example.popularlibraries.BuildConfig
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -11,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkProvider {
 
-    val usersApi by lazy {
+    val usersApi: UsersApi by lazy {
         createRetrofit().create(UsersApi::class.java)
     }
 

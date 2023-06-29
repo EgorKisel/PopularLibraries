@@ -13,12 +13,6 @@ typealias OnUserClickListener = (login: String) -> Unit
 class UsersAdapter(private val onUserClickListener: OnUserClickListener) :
     RecyclerView.Adapter<UsersAdapter.GithubUserViewHolder>() {
 
-//    private lateinit var userClick: ItemClickListener
-//
-//    fun setOnUserClickListener(listener: ItemClickListener) {
-//        userClick = listener
-//    }
-
     var users: List<GithubUser> = emptyList()
         set(value) {
             field = value

@@ -12,7 +12,3 @@ interface UserView : MvpView {
     fun hideLoading()
     fun errorGetUser(message: String?)
 }
-
-interface ItemClickListener {
-    fun onUserClick(user: GithubUser)
-}

@@ -40,11 +40,8 @@ class GithubUserReposViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: ReposDto) = with(binding) {
-
         nameRepo.text = item.name
-
         dateCreating.text = item.createdAt
-
         root.setOnClickListener {
             onUserClickListener.invoke(item)
         }

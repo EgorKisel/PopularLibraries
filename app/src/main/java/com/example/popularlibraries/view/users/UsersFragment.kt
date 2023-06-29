@@ -25,12 +25,6 @@ class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
         UsersPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router)
     }
 
-//    private val listener = object : ItemClickListener {
-//        override fun onUserClick(user: GithubUser) {
-//            presenter.openUserScreen(user)
-//        }
-//    }
-
     private val userAdapter = UsersAdapter() {
         presenter.openUserScreen(it)
     }
@@ -48,7 +42,6 @@ class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //userAdapter.setOnUserClickListener(listener)
         binding.rvGithubUser.adapter = userAdapter
         binding.rvGithubUser.layoutManager = LinearLayoutManager(requireContext())
     }

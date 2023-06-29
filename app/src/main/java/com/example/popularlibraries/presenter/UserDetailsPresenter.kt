@@ -5,7 +5,6 @@ import com.example.popularlibraries.common.RepoScreen
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.disposableBy
 import com.example.popularlibraries.common.subscribeByDefault
-import com.example.popularlibraries.model.GithubUser
 import com.example.popularlibraries.model.GithubUserRepos
 import com.example.popularlibraries.model.repository.GithubRepository
 import com.example.popularlibraries.network.ReposDto
