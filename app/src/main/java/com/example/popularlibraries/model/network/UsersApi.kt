@@ -1,5 +1,7 @@
-package com.example.popularlibraries.network
+package com.example.popularlibraries.model.network
 
+import com.example.popularlibraries.model.data.ReposDto
+import com.example.popularlibraries.model.data.UsersDto
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

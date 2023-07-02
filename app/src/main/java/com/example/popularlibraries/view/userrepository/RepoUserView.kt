@@ -1,6 +1,6 @@
 package com.example.popularlibraries.view.userrepository
 
-import com.example.popularlibraries.network.ReposDto
+import com.example.popularlibraries.model.data.ReposDto
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

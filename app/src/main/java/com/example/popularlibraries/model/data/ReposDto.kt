@@ -1,4 +1,4 @@
-package com.example.popularlibraries.network
+package com.example.popularlibraries.model.data
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -21,7 +21,7 @@ data class ReposDto(
     val description: String,
     @Expose
     @SerializedName("created_at")
-    val createdAt: String,
+    var createdAt: String,
     @Expose
     @SerializedName("updated_at")
     val updatedAt: String,

@@ -1,6 +1,7 @@
 package com.example.popularlibraries.common
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
@@ -12,4 +13,13 @@ fun <T : Any> Single<T>.subscribeByDefault(): Single<T> {
 
 fun Disposable.disposableBy(bag: CompositeDisposable) {
     bag.add(this)
+}
+
+fun <T : Any> Single<T>.doCompletableIf(
+    predicate: Boolean,
+    completableCreate: (data: T) -> Completable,
+): Single<T> {
+    return if (predicate) {
+        this.flatMap { completableCreate(it).andThen(Single.just(it)) }
+    } else this
 }

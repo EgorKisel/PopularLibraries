@@ -1,4 +1,4 @@
-package com.example.popularlibraries.network
+package com.example.popularlibraries.model.network
 
 import com.example.popularlibraries.BuildConfig
 import com.google.gson.Gson

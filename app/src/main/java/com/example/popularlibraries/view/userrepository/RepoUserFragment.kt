@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.popularlibraries.core.App
 import com.example.popularlibraries.databinding.FragmentRepoUserBinding
-import com.example.popularlibraries.network.ReposDto
+import com.example.popularlibraries.model.data.ReposDto
 import com.example.popularlibraries.presenter.RepoUserPresenter
 import com.example.popularlibraries.view.main.BackPressedListener
 import moxy.MvpAppCompatFragment

@@ -1,6 +1,6 @@
 package com.example.popularlibraries.presenter
 
-import com.example.popularlibraries.network.ReposDto
+import com.example.popularlibraries.model.data.ReposDto
 import com.example.popularlibraries.view.userrepository.RepoUserView
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter

@@ -5,12 +5,10 @@ import com.example.popularlibraries.common.RepoScreen
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.disposableBy
 import com.example.popularlibraries.common.subscribeByDefault
-import com.example.popularlibraries.model.GithubUserRepos
+import com.example.popularlibraries.model.data.ReposDto
 import com.example.popularlibraries.model.repository.GithubRepository
-import com.example.popularlibraries.network.ReposDto
 import com.example.popularlibraries.view.userdetails.UserDetailsView
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
@@ -25,12 +23,7 @@ class UserDetailsPresenter(
     fun loadUser(login: String) {
         mLogin = login
         viewState.showLoading()
-        Single.zip(
-            repository.getUsersByLogin(login),
-            repository.getReposByLogin(login)
-        ) { user, repos ->
-            GithubUserRepos(user, repos.sortedByDescending { it.createdAt })
-        }.subscribeByDefault().subscribe({
+        repository.getUserWithReposByLogin(login).subscribeByDefault().subscribe({
             viewState.hideLoading()
             viewState.showUser(it)
         }, {
@@ -40,7 +33,7 @@ class UserDetailsPresenter(
 
     fun onBackPressed(): Boolean {
         mLogin?.let {
-            router.navigateTo(UserScreen(it))
+            router.backTo(UserScreen(it))
         }
         return true
     }
