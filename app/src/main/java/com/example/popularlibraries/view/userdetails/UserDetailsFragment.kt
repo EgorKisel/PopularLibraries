@@ -1,20 +1,16 @@
 package com.example.popularlibraries.view.userdetails
 
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.popularlibraries.common.AndroidNetworkStatus
 import com.example.popularlibraries.common.hide
 import com.example.popularlibraries.common.loadGlide
 import com.example.popularlibraries.common.show
 import com.example.popularlibraries.core.App
 import com.example.popularlibraries.databinding.FragmentUserScreenBinding
 import com.example.popularlibraries.model.data.GithubUser
-import com.example.popularlibraries.model.network.NetworkProvider
-import com.example.popularlibraries.model.repository.GithubRepositoryImpl
 import com.example.popularlibraries.presenter.UserDetailsPresenter
 import com.example.popularlibraries.view.main.BackPressedListener
 import moxy.MvpAppCompatFragment
@@ -23,14 +19,9 @@ import moxy.ktx.moxyPresenter
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener {
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(
-            App.instance.router,
-            GithubRepositoryImpl(
-                NetworkProvider.usersApi,
-                App.instance.database.userDao(),
-                AndroidNetworkStatus(requireContext()).isOnlineSingle()
-            )
-        )
+        UserDetailsPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private val reposAdapter = ReposAdapter {
@@ -70,12 +61,11 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     }
 
     override fun showUser(user: GithubUser) {
-        TransitionManager.beginDelayedTransition(binding.root)
         binding.userName.text = user.login
         binding.ivUserAvatar.loadGlide(user.avatarUrl)
         binding.userRepos.text = "Repo:" + user.repos?.size.toString()
-        user.repos?.let {
-            reposAdapter.repos = it
+        user.repos?.let {list ->
+            reposAdapter.repos = list.sortedByDescending { it.createdAt }
         }
     }
 

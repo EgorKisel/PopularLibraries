@@ -15,7 +15,7 @@ import moxy.ktx.moxyPresenter
 class RepoUserFragment : MvpAppCompatFragment(), RepoUserView, BackPressedListener {
 
     private val presenter: RepoUserPresenter by moxyPresenter {
-        RepoUserPresenter(App.instance.router, arguments?.getParcelable(KEY_REPO))
+        RepoUserPresenter(arguments?.getParcelable(KEY_REPO))
     }
 
     private lateinit var binding: FragmentRepoUserBinding

@@ -3,18 +3,24 @@ package com.example.popularlibraries.presenter
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.UsersScreen
 import com.example.popularlibraries.common.subscribeByDefault
+import com.example.popularlibraries.core.App
 import com.example.popularlibraries.model.repository.GithubRepository
 import com.example.popularlibraries.view.users.UserView
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
-    private val repository: GithubRepository,
-    private val router: Router
-) : MvpPresenter<UserView>() {
+class UsersPresenter : MvpPresenter<UserView>() {
+
+    @Inject
+    lateinit var repository: GithubRepository
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        App.instance.appComponent.inject(this)
         viewState.showLoading()
         repository.getUsers().subscribeByDefault()
             .subscribe({

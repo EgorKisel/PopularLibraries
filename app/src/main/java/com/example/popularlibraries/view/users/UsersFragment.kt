@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
-import com.example.popularlibraries.common.AndroidNetworkStatus
 import com.example.popularlibraries.common.hide
 import com.example.popularlibraries.common.show
-import com.example.popularlibraries.core.App
 import com.example.popularlibraries.databinding.FragmentUserListBinding
 import com.example.popularlibraries.model.data.GithubUser
-import com.example.popularlibraries.model.network.NetworkProvider
-import com.example.popularlibraries.model.repository.GithubRepositoryImpl
 import com.example.popularlibraries.presenter.UsersPresenter
 import com.example.popularlibraries.view.main.BackPressedListener
 import moxy.MvpAppCompatFragment
@@ -23,13 +19,7 @@ import moxy.ktx.moxyPresenter
 class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            GithubRepositoryImpl(
-                NetworkProvider.usersApi,
-                App.instance.database.userDao(),
-                AndroidNetworkStatus(requireContext()).isOnlineSingle()
-            ), App.instance.router
-        )
+        UsersPresenter()
     }
 
     private val userAdapter = UsersAdapter() {

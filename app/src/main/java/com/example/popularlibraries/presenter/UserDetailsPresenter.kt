@@ -11,11 +11,14 @@ import com.example.popularlibraries.view.userdetails.UserDetailsView
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UserDetailsPresenter(
-    private val router: Router,
-    private val repository: GithubRepository
-) : MvpPresenter<UserDetailsView>() {
+class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
+
+    @Inject
+    lateinit var repository: GithubRepository
+    @Inject
+    lateinit var router: Router
 
     private val bag = CompositeDisposable()
     private var mLogin: String? = null
