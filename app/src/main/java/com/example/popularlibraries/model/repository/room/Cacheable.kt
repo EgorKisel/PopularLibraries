@@ -1,4 +1,4 @@
-package com.example.popularlibraries.model.repository
+package com.example.popularlibraries.model.repository.room
 
 import com.example.popularlibraries.model.database.entity.UserRepoDbEntity
 import com.example.popularlibraries.model.database.entity.UsersDbEntity

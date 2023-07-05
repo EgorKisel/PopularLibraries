@@ -10,16 +10,19 @@ import com.example.popularlibraries.model.database.dao.UserRepoDao
 import com.example.popularlibraries.model.database.dao.UsersDao
 import com.example.popularlibraries.model.network.ReposDto
 import com.example.popularlibraries.model.repository.network.GithubApiRepo
+import com.example.popularlibraries.model.repository.room.Cacheable
+import com.example.popularlibraries.model.repository.room.UserRepositoryRepo
+import com.example.popularlibraries.model.repository.room.UsersRepo
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import java.util.concurrent.TimeUnit
 
 class GithubRepositoryImpl(
     private val githubApiRepo: GithubApiRepo,
-    private val usersDao: UsersDao,
+    private val usersRepo: UsersRepo,
+    private val userRepositoryRepo: UserRepositoryRepo,
     private val networkStatus: Single<Boolean>,
-    private val roomCache: Cacheable,
-    private val userRepoDao: UserRepoDao
+    private val roomCache: Cacheable
 ) : GithubRepository {
 
     override fun getUsers(): Single<List<GithubUser>> {
@@ -43,11 +46,11 @@ class GithubRepositoryImpl(
     }
 
     private fun getUsersBD(): Single<List<GithubUser>> {
-        return usersDao.queryForAllUsers().map { it.map(::mapToEntity) }
+        return usersRepo.queryForAllUsers().map { it.map(::mapToEntity) }
     }
 
     private fun getUserWithRepoBD(login: String): Single<GithubUser> {
-        return userRepoDao.getUsersWithRepos(login).map { userWithRepos ->
+        return userRepositoryRepo.getUsersWithRepos(login).map { userWithRepos ->
             val user = mapToEntity(userWithRepos.usersDbEntity)
             user.repos = userWithRepos.repos.map {
                 it.createdAt = it.createdAt?.substring(0, 10).toString()
