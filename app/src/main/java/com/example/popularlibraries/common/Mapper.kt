@@ -1,10 +1,11 @@
 package com.example.popularlibraries.common
 
-import com.example.popularlibraries.model.data.GithubUser
-import com.example.popularlibraries.model.data.ReposDto
-import com.example.popularlibraries.model.data.UsersDto
+import com.example.popularlibraries.model.GithubUser
+import com.example.popularlibraries.model.network.ReposDto
 import com.example.popularlibraries.model.database.RepoDbObject
-import com.example.popularlibraries.model.database.UserDbObject
+import com.example.popularlibraries.model.database.entity.UserRepoDbEntity
+import com.example.popularlibraries.model.database.entity.UsersDbEntity
+import com.example.popularlibraries.model.network.UsersDto
 
 fun mapToEntity(dto: UsersDto): GithubUser {
     return GithubUser(
@@ -15,8 +16,8 @@ fun mapToEntity(dto: UsersDto): GithubUser {
     )
 }
 
-fun mapToDbObject(dto: UsersDto): UserDbObject {
-    return UserDbObject(
+fun mapToDbObject(dto: UsersDto): UsersDbEntity {
+    return UsersDbEntity(
         id = dto.id,
         login = dto.login,
         avatarUrl = dto.avatarUrl,
@@ -24,14 +25,14 @@ fun mapToDbObject(dto: UsersDto): UserDbObject {
     )
 }
 
-fun mapToEntity(userDbObject: UserDbObject): GithubUser {
-    return GithubUser(id = userDbObject.id,
-        login = userDbObject.login,
-        avatarUrl = userDbObject.avatarUrl,
-        reposUrl = userDbObject.reposUrl)
+fun mapToEntity(usersDbEntity: UsersDbEntity): GithubUser {
+    return GithubUser(id = usersDbEntity.id,
+        login = usersDbEntity.login,
+        avatarUrl = usersDbEntity.avatarUrl,
+        reposUrl = usersDbEntity.reposUrl)
 }
 
-fun mapRepos(repoDto: RepoDbObject): ReposDto {
+fun mapRepos(repoDto: UserRepoDbEntity): ReposDto {
     return ReposDto(
         id = repoDto.id,
         forksCount = repoDto.forks,
@@ -44,8 +45,8 @@ fun mapRepos(repoDto: RepoDbObject): ReposDto {
     )
 }
 
-fun mapReposToObject(repoDto: ReposDto, mUserId: Int): RepoDbObject {
-    return RepoDbObject(
+fun mapReposToObject(repoDto: ReposDto, mUserId: Int): UserRepoDbEntity {
+    return UserRepoDbEntity(
         id = repoDto.id,
         forks = repoDto.forksCount,
         name = repoDto.name,

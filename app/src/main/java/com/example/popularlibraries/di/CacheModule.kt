@@ -1,6 +1,7 @@
 package com.example.popularlibraries.di
 
-import com.example.popularlibraries.model.database.UserDao
+import com.example.popularlibraries.model.database.dao.UserRepoDao
+import com.example.popularlibraries.model.database.dao.UsersDao
 import com.example.popularlibraries.model.repository.Cacheable
 import com.example.popularlibraries.model.repository.RoomCache
 import dagger.Module
@@ -12,7 +13,7 @@ object CacheModule {
 
     @Singleton
     @Provides
-    fun provideCacheable(userDao: UserDao): Cacheable {
-        return RoomCache(userDao)
+    fun provideCacheable(usersDao: UsersDao, repoDao: UserRepoDao): Cacheable {
+        return RoomCache(usersDao, repoDao)
     }
 }

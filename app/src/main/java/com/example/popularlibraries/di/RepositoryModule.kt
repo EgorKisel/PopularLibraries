@@ -1,11 +1,13 @@
 package com.example.popularlibraries.di
 
 import com.example.popularlibraries.core.ConnectivityListener
-import com.example.popularlibraries.model.database.UserDao
-import com.example.popularlibraries.model.network.UsersApi
+import com.example.popularlibraries.model.database.dao.UserRepoDao
+import com.example.popularlibraries.model.database.dao.UsersDao
+import com.example.popularlibraries.model.network.GithubApi
 import com.example.popularlibraries.model.repository.Cacheable
 import com.example.popularlibraries.model.repository.GithubRepository
 import com.example.popularlibraries.model.repository.GithubRepositoryImpl
+import com.example.popularlibraries.model.repository.network.GithubApiRepo
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,11 +18,18 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideUserRepository(
-        usersApi: UsersApi,
-        userDao: UserDao,
+        githubApiRepo: GithubApiRepo,
+        usersDao: UsersDao,
         networkStatus: ConnectivityListener,
-        cacheable: Cacheable
+        cacheable: Cacheable,
+        userRepoDao: UserRepoDao
     ): GithubRepository {
-        return GithubRepositoryImpl(usersApi, userDao, networkStatus.statusSingle(), cacheable)
+        return GithubRepositoryImpl(
+            githubApiRepo,
+            usersDao,
+            networkStatus.statusSingle(),
+            cacheable,
+            userRepoDao
+        )
     }
 }

@@ -15,6 +15,8 @@ class AppModule(private val context: Context) {
         return context
     }
 
+    @Singleton
+    @Provides
     fun provideConnectivityManager(): ConnectivityManager {
         return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }

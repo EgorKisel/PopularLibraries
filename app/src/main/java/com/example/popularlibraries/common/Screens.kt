@@ -3,7 +3,7 @@ package com.example.popularlibraries.common
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.example.popularlibraries.model.data.ReposDto
+import com.example.popularlibraries.model.network.ReposDto
 import com.example.popularlibraries.view.userdetails.UserDetailsFragment
 import com.example.popularlibraries.view.userrepository.RepoUserFragment
 import com.example.popularlibraries.view.userrepository.RepoUserFragment.Companion.KEY_REPO
@@ -28,5 +28,4 @@ data class RepoScreen(private val repo: ReposDto) : FragmentScreen {
             putParcelable(KEY_REPO, repo)
         })
     }
-
 }

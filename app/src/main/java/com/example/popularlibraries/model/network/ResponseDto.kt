@@ -1,4 +1,4 @@
-package com.example.popularlibraries.model.data
+package com.example.popularlibraries.model.network
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -12,23 +12,42 @@ data class ReposDto(
     val id: Int,
     @Expose
     @SerializedName("node_id")
-    val nodeId: String,
+    val nodeId: String?,
     @Expose
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @Expose
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @Expose
     @SerializedName("created_at")
-    var createdAt: String,
+    var createdAt: String?,
     @Expose
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
     @Expose
     @SerializedName("language")
-    val language: String,
+    val language: String?,
     @Expose
     @SerializedName("forks_count")
-    val forksCount: Int
+    val forksCount: Int?
+) : Parcelable
+
+@Parcelize
+data class UsersDto(
+    @Expose
+    @SerializedName("id")
+    val id: Int,
+
+    @Expose
+    @SerializedName("login")
+    val login: String,
+
+    @Expose
+    @SerializedName("avatar_url")
+    val avatarUrl: String,
+
+    @Expose
+    @SerializedName("repos_url")
+    val reposUrl: String,
 ) : Parcelable

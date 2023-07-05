@@ -10,17 +10,17 @@ import com.github.terrakok.cicerone.Router
 
 class App: Application() {
 
-    lateinit var appComponent: AppComponent
-
     companion object {
         lateinit var instance: App
     }
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
         appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(applicationContext))
+            .appModule(AppModule(this))
             .build()
     }
 }

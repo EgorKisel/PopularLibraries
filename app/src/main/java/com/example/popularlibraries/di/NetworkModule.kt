@@ -1,9 +1,8 @@
 package com.example.popularlibraries.di
 
 import android.net.ConnectivityManager
-import com.example.popularlibraries.BuildConfig
 import com.example.popularlibraries.core.ConnectivityListener
-import com.example.popularlibraries.model.network.UsersApi
+import com.example.popularlibraries.model.network.GithubApi
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -17,21 +16,22 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-object ApiModule {
+object NetworkModule {
 
-    @Named("baseUrl")
+    @Singleton
     @Provides
-    fun provideBaseUrl(): String = BuildConfig.SERVER_URL
-
-    @Provides
-    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): UsersApi =
+    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): GithubApi =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(UsersApi::class.java)
+            .create(GithubApi::class.java)
+
+    @Named("baseUrl")
+    @Provides
+    fun provideBaseUrl(): String = "https://api.github.com"
 
     @Singleton
     @Provides
@@ -47,11 +47,6 @@ object ApiModule {
         val url = request.url.newBuilder().build()
         chain.proceed(request.newBuilder().url(url).build())
     }.build()
-
-//    @Singleton
-//    @Provides
-//    fun provideNetworkStatus(context: Context): INetworkStatus =
-//        AndroidNetworkStatus(context)
 
     @Singleton
     @Provides

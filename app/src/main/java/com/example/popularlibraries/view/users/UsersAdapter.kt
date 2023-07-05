@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.popularlibraries.common.loadGlide
 import com.example.popularlibraries.databinding.UserItemBinding
-import com.example.popularlibraries.model.data.GithubUser
+import com.example.popularlibraries.model.GithubUser
 
 typealias OnUserClickListener = (login: String) -> Unit
 

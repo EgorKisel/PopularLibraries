@@ -10,7 +10,7 @@ import androidx.transition.TransitionManager
 import com.example.popularlibraries.common.hide
 import com.example.popularlibraries.common.show
 import com.example.popularlibraries.databinding.FragmentUserListBinding
-import com.example.popularlibraries.model.data.GithubUser
+import com.example.popularlibraries.model.GithubUser
 import com.example.popularlibraries.presenter.UsersPresenter
 import com.example.popularlibraries.view.main.BackPressedListener
 import moxy.MvpAppCompatFragment
@@ -18,13 +18,14 @@ import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
 
+    private val userAdapter = UsersAdapter() {
+        presenter.openUserScreen(it)
+    }
+
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter()
     }
 
-    private val userAdapter = UsersAdapter() {
-        presenter.openUserScreen(it)
-    }
     private lateinit var binding: FragmentUserListBinding
 
     override fun onCreateView(

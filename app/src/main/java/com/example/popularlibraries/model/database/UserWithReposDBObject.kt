@@ -2,13 +2,15 @@ package com.example.popularlibraries.model.database
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.example.popularlibraries.model.database.entity.UserRepoDbEntity
+import com.example.popularlibraries.model.database.entity.UsersDbEntity
 
 data class UserWithReposDBObject(
     @Embedded // распарсится на поля
-    val userDbObject: UserDbObject,
+    val usersDbEntity: UsersDbEntity,
     @Relation(
-        parentColumn = UserDbObject.PRIMARY_KEY,
-        entityColumn = RepoDbObject.FOREIGN_USER_KEY
+        parentColumn = UsersDbEntity.PRIMARY_KEY,
+        entityColumn = UserRepoDbEntity.FOREIGN_USER_KEY
     )
-    val repos: List<RepoDbObject>
+    val repos: List<UserRepoDbEntity>
 )

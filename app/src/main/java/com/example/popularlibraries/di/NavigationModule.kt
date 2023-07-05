@@ -5,7 +5,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import dagger.Module
 import dagger.Provides
-import moxy.viewstate.strategy.alias.SingleState
+import javax.inject.Singleton
 
 @Module
 object NavigationModule {
@@ -15,11 +15,11 @@ object NavigationModule {
     @Provides
     fun cicerone(): Cicerone<Router> = cicerone
 
-    @SingleState
+    @Singleton
     @Provides
     fun navigatorHolder(): NavigatorHolder = cicerone.getNavigatorHolder()
 
-    @SingleState
+    @Singleton
     @Provides
     fun router(): Router = cicerone.router
 }

@@ -43,8 +43,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun onPause() {
-        super.onPause()
         navigationHolder.removeNavigator()
+        super.onPause()
     }
 
     override fun onBackPressed() {

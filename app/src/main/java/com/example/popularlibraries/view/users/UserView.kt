@@ -1,6 +1,6 @@
 package com.example.popularlibraries.view.users
 
-import com.example.popularlibraries.model.data.GithubUser
+import com.example.popularlibraries.model.GithubUser
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

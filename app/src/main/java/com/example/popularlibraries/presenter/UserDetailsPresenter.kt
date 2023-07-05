@@ -5,7 +5,7 @@ import com.example.popularlibraries.common.RepoScreen
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.disposableBy
 import com.example.popularlibraries.common.subscribeByDefault
-import com.example.popularlibraries.model.data.ReposDto
+import com.example.popularlibraries.model.network.ReposDto
 import com.example.popularlibraries.model.repository.GithubRepository
 import com.example.popularlibraries.view.userdetails.UserDetailsView
 import com.github.terrakok.cicerone.Router
@@ -17,6 +17,7 @@ class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
 
     @Inject
     lateinit var repository: GithubRepository
+
     @Inject
     lateinit var router: Router
 
