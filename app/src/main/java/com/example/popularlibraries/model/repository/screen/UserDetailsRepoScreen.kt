@@ -1,9 +1,8 @@
-package com.example.popularlibraries.model.repository
+package com.example.popularlibraries.model.repository.screen
 
 import com.example.popularlibraries.model.GithubUser
 import io.reactivex.rxjava3.core.Single
 
-interface GithubRepository {
-    fun getUsers(): Single<List<GithubUser>>
+interface UserDetailsRepoScreen {
     fun getUserWithReposByLogin(login: String): Single<GithubUser>
 }

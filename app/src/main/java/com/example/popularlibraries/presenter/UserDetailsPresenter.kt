@@ -6,7 +6,7 @@ import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.disposableBy
 import com.example.popularlibraries.common.subscribeByDefault
 import com.example.popularlibraries.model.network.ReposDto
-import com.example.popularlibraries.model.repository.GithubRepository
+import com.example.popularlibraries.model.repository.screen.UserDetailsRepoScreen
 import com.example.popularlibraries.view.userdetails.UserDetailsView
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
 
     @Inject
-    lateinit var repository: GithubRepository
+    lateinit var repository: UserDetailsRepoScreen
 
     @Inject
     lateinit var router: Router
