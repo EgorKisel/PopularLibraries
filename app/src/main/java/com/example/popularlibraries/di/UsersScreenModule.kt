@@ -10,10 +10,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-//@Scope
-//@Retention(AnnotationRetention.RUNTIME)
-//annotation class UsersScreenRepoScope
-
 @Module
 object UsersScreenModule {
 
@@ -33,14 +29,3 @@ object UsersScreenModule {
         )
     }
 }
-
-//@UsersScreenRepoScope
-//@Subcomponent(
-//    modules = [
-//        UsersScreenModule::class
-//    ]
-//)
-//interface RepositorySubcomponent {
-//    fun inject(userPresenter: UserPresenter)
-//    fun inject(repositoryPresenter: RepositoryPresenter)
-//}

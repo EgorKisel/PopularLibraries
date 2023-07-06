@@ -24,9 +24,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     }
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter().apply {
-            App.instance.appComponent.inject(this)
-        }
+        UserDetailsPresenter(arguments?.getString(KEY_USER))
     }
 
     private var binding: FragmentUserScreenBinding? = null
@@ -43,9 +41,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getString(KEY_USER)?.let {
-            presenter.loadUser(it)
-        }
         binding?.rvGithubUserRepos?.adapter = reposAdapter
         binding?.rvGithubUserRepos?.layoutManager = LinearLayoutManager(requireContext())
     }

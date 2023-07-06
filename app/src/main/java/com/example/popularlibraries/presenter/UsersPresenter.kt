@@ -20,8 +20,8 @@ class UsersPresenter : MvpPresenter<UserView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        App.instance.appComponent.inject(this)
         viewState.showLoading()
+        App.instance.appComponent.inject(this)
         repository.getUsers().subscribeByDefault()
             .subscribe({
                 viewState.initList(it)

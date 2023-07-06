@@ -5,6 +5,8 @@ import com.example.popularlibraries.common.RepoScreen
 import com.example.popularlibraries.common.UserScreen
 import com.example.popularlibraries.common.disposableBy
 import com.example.popularlibraries.common.subscribeByDefault
+import com.example.popularlibraries.core.App
+import com.example.popularlibraries.di.RepositorySubcomponent
 import com.example.popularlibraries.model.network.ReposDto
 import com.example.popularlibraries.model.repository.screen.UserDetailsRepoScreen
 import com.example.popularlibraries.view.userdetails.UserDetailsView
@@ -13,7 +15,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
+class UserDetailsPresenter(private val string: String?) : MvpPresenter<UserDetailsView>() {
+
+    var userSubcomponent: RepositorySubcomponent? = null
 
     @Inject
     lateinit var repository: UserDetailsRepoScreen
@@ -23,6 +27,13 @@ class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
 
     private val bag = CompositeDisposable()
     private var mLogin: String? = null
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        userSubcomponent = App.instance.appComponent.userSubcomponent()
+        userSubcomponent?.inject(this)
+        loadUser(string!!)
+    }
 
     fun loadUser(login: String) {
         mLogin = login
@@ -49,5 +60,6 @@ class UserDetailsPresenter : MvpPresenter<UserDetailsView>() {
     override fun onDestroy() {
         super.onDestroy()
         bag.dispose()
+        userSubcomponent = null
     }
 }
